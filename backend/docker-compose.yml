@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  nginx:
+    image: nginx:1.19.5
+    networks:
+      - network
+    volumes:
+      - /var/www/backend-misiion/missions/week 5/back/ABLY-externship-5/nginx/nginx.conf
+      - static-volume:/static
+    ports:
+      - 80:80
+  django_container_gunicorn:
+    image: django_image
+    networks:
+      - network
+    volumes:
+      - static-volume: /var/www/backend-misiion/missions/week 5/back/ABLY-externship-5/static
