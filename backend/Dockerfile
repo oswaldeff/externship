@@ -2,14 +2,18 @@ FROM python:3.9.6
 
 WORKDIR /var/www/
 
-RUN git clone https://github.com/oswaldeff/backend-mission
+RUN git clone https://github.com/oswaldeff/externship
 
-WORKDIR /var/www/backend-misiion/missions/week 5/back/
+WORKDIR /var/www/externship/backend/ecommerce
 
-RUN pipenv install -r ABLY-externship-5/requirements/prod.txt
+RUN pipenv --python 3.9
+
+RUN pipenv shell
+
+RUN pipenv install -r requirements/prod.txt
 
 RUN python manage.py migrate
 
 EXPOSE 8000
 
-CMD
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
