@@ -10,7 +10,7 @@ services:
     ports:
       - 80:80
   externship:
-    image: externship_image:1
+    image: externship-image:1
     networks:
       - network
     volumes:
