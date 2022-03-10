@@ -6,7 +6,7 @@ services:
       - network
     volumes:
       - /home/docker_swarm/nginx.conf:/etc/nginx/nginx.conf
-      - static-volume:files/static
+      - static-volume:/files/static
     ports:
       - 80:80
   externship:
