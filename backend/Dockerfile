@@ -8,9 +8,9 @@ WORKDIR /var/www/externship/backend
 
 RUN python -m pip install --upgrade pip
 
-RUN sudo pip3 install -r ecommerce/requirements/prod.txt
+RUN pip3 install -r ecommerce/requirements/prod.txt
 
-RUN sudo pip3 install gunicorn
+RUN pip3 install gunicorn
 
 WORKDIR /var/www/externship/backend/ecommerce
 
