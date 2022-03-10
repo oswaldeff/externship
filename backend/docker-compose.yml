@@ -14,7 +14,7 @@ services:
     networks:
       - network
     volumes:
-      - static-volume: /var/www/externship/backend/ecommerce/static
+      - static-volume:/var/www/externship/backend/ecommerce/static
     secrets:
       - DJANGO_SECRET_KEY
       - DATABASES_HOST
