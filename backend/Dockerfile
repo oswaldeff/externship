@@ -6,9 +6,11 @@ RUN git clone https://github.com/oswaldeff/externship.git
 
 WORKDIR /var/www/externship/backend
 
-RUN pip3 install -r ecommerce/requirements/prod.txt
+RUN python -m pip install --upgrade pip
 
-RUN pip3 install gunicorn
+RUN sudo pip3 install -r ecommerce/requirements/prod.txt
+
+RUN sudo pip3 install gunicorn
 
 WORKDIR /var/www/externship/backend/ecommerce
 
