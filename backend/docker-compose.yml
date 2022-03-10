@@ -5,13 +5,29 @@ services:
     networks:
       - network
     volumes:
-      - /var/www/backend-misiion/missions/week 5/back/ABLY-externship-5/nginx/nginx.conf
-      - static-volume:/static
+      - /home/docker_swarm/nginx.conf:/etc/nginx/nginx.conf
+      - static-volume:files/static
     ports:
       - 80:80
-  django_container_gunicorn:
-    image: django_image
+  externship:
+    image: externship_image:1
     networks:
       - network
     volumes:
-      - static-volume: /var/www/backend-misiion/missions/week 5/back/ABLY-externship-5/static
+      - static-volume: /var/www/externship/backend/ecommerce/static
+    secrets:
+      - DJANGO_SECRET_KEY
+      - DATABASES_HOST
+      - DATABASES_NAME
+      - DATABASES_USER
+      - DATABASES_PASSWORD
+      - DATABASES_PORT
+      - ALGORITHM
+      - KAKAO_CLIENT_ID
+      - PHONE_NUMBER
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_S3_ADDRESS
+      - AWS_REGION
+      - AWS_S3_HOST
+      - AWS_BUCKET_NAME
