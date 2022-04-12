@@ -164,19 +164,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # pymysql setting
-pymysql.version_info = (1, 4, 2, "final", 0)
-pymysql.install_as_MySQLdb()
+# pymysql.version_info = (1, 4, 2, "final", 0)
+# pymysql.install_as_MySQLdb()
+
+# DATABASES = {
+#     'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'OPTIONS': {'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'},
+#             'HOST': os.environ.get('DATABASES_HOST'),
+#             'NAME': os.environ.get('DATABASES_NAME'),
+#             'USER': os.environ.get('DATABASES_USER'),
+#             'PASSWORD': os.environ.get('DATABASES_PASSWORD'),
+#             'PORT': os.environ.get('DATABASES_PORT'),
+#         }
+# }
 
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'},
-            'HOST': os.environ.get('DATABASES_HOST'),
-            'NAME': os.environ.get('DATABASES_NAME'),
-            'USER': os.environ.get('DATABASES_USER'),
-            'PASSWORD': os.environ.get('DATABASES_PASSWORD'),
-            'PORT': os.environ.get('DATABASES_PORT'),
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 
@@ -226,22 +233,22 @@ STATICFILES_DIRS = [
 
 # AWS S3 setting
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_S3_ADDRESS = os.environ.get('AWS_S3_ADDRESS')
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_S3_ADDRESS = os.environ.get('AWS_S3_ADDRESS')
 
-AWS_REGION = os.environ.get('AWS_REGION')
-AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = f's3.{AWS_REGION}.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
-AWS_QUERYSTRING_AUTH = False
+# AWS_REGION = os.environ.get('AWS_REGION')
+# AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
+# AWS_S3_CUSTOM_DOMAIN = f's3.{AWS_REGION}.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
+# AWS_QUERYSTRING_AUTH = False
 
-AWS_S3_FILE_OVERWRITE = True
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_DEFAULT_ACL = 'public-read'
-AWS_LOCATION = ''
+# AWS_S3_FILE_OVERWRITE = True
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_DEFAULT_ACL = 'public-read'
+# AWS_LOCATION = ''
 
 # model ImageField
 # MEDIA_URL = ''
