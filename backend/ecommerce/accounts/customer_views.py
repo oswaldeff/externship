@@ -15,6 +15,7 @@ from .models import User, Customer, Seller
 from .socials import SocialLoginProfile
 from .tokens import jwt_publish, jwt_authorization
 import os
+import jwt
 # from products.views import MerchandiseALL
 
 
@@ -61,17 +62,14 @@ class CustomerSignin(LoginView):
     
     next_page = 'home'
     template_name = 'accounts/login.html'
-    redirect_authenticated_user = False
+    redirect_authenticated_user = True
     
     def dispatch(self, request, *args, **kwargs):
-        if self.redirect_authenticated_user and self.request.user.is_authenticated:
-            redirect_to = self.get_success_url()
-            if redirect_to == self.request.path:
-                raise ValueError(
-                    "Redirection loop for authenticated user detected. Check that "
-                    "your LOGIN_REDIRECT_URL doesn't point to a login page."
-                )
-            return HttpResponseRedirect(redirect_to)
+        access_jwt = request.COOKIES.get('_utk', None)
+        if access_jwt:
+            payload = jwt.decode(access_jwt, key=os.environ.get('DJANGO_SECRET_KEY'), algorithms=os.environ.get('ALGORITHM'))
+            request.user = User.objects.get(id=payload['user_id'])
+        
         return super().dispatch(request, *args, **kwargs)
     
     def get_default_redirect_url(self):
