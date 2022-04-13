@@ -13,17 +13,16 @@ class SocialLoginProfile(View):
         
         api_url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}'
         token_response = requests.get(api_url)
-        if token_response.status_code != 200:
-            return token_response
         token_json = token_response.json()
+        error = token_json.get("error", None)
+        if error is not None:
+            raise Exception("kakao token error")
         access_token = token_json['access_token']
         
         
         profile_url = 'https://kapi.kakao.com/v2/user/me'
         headers = {'Authorization' : f'Bearer {access_token}'}
         profile_response = requests.get(profile_url, headers=headers)
-        if profile_response.status_code != 200:
-            return profile_response
         profile_json = profile_response.json()
         
         data = defaultdict(str)
