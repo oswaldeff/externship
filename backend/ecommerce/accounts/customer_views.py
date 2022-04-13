@@ -94,10 +94,10 @@ class CustomerSignin(LoginView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_site = get_current_site(self.request)
+        current_site = os.environ.get('HOST')
         context.update({
             self.redirect_field_name: self.get_redirect_url(),
             'site': current_site,
-            'site_name': current_site.name,
             'kakao_client_id': os.environ.get('KAKAO_CLIENT_ID'),
             **(self.extra_context or {})
         })

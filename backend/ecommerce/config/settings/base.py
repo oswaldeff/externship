@@ -31,6 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1', 
     'localhost',
+    os.environ.get('HOST'),
 ]
 
 # debug_toolbar IP setting for local development
