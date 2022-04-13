@@ -67,8 +67,11 @@ class CustomerSignin(LoginView):
     def dispatch(self, request, *args, **kwargs):
         access_jwt = request.COOKIES.get('_utk', None)
         if access_jwt:
-            payload = jwt.decode(access_jwt, key=os.environ.get('DJANGO_SECRET_KEY'), algorithms=os.environ.get('ALGORITHM'))
-            request.user = User.objects.get(id=payload['user_id'])
+            try:
+                payload = jwt.decode(access_jwt, key=os.environ.get('DJANGO_SECRET_KEY'), algorithms=os.environ.get('ALGORITHM'))
+                request.user = User.objects.get(id=payload['user_id'])
+            except:
+                pass
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -149,10 +152,9 @@ class CustomerSignout(View):
     
     @jwt_authorization
     def get(self, request, *args, **kwargs):
-        access_jwt = jwt_publish('anonymoususer')
-        response = HttpResponseRedirect('/')
+        response = HttpResponseRedirect('/accounts/login')
         response.set_cookie(
             key='_utk',
-            value=access_jwt
+            value=None
         )
         return response
